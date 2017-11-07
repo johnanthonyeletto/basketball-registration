@@ -81,7 +81,7 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
       
       response = $.parseJSON(response);
       
-      $("#response-modal").find(".modal-title").html(selected[1]);
+      $("#response-modal").find(".modal-title").html(selected[1] + " - <span style='color: #1565C0'>" +response['game_info']['number_assigned'] + " Assigned</span>");
       
       var append = "<table class='table'>";
       
@@ -107,6 +107,15 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
             break;
           default:
             append += "<tr>";
+        }
+        
+        if(this['scholarship'] == 1 || response['game_info']['game_required'] == 1){
+          append += "<td><input type='checkbox' name='" + this["cwid"] + "' checked disabled></td>";
+          append += "<input type='hidden' name='" + this["cwid"] + "'>";
+        }else if(this['assigned'] == 1){
+          append += "<td><input type='checkbox' name='" + this["cwid"] + "' checked></td>";
+        }else{
+          append += "<td><input type='checkbox' name='" + this["cwid"] + "'></td>";
         }
         
         append += "<td>" + this['student_name'] + "</td>";
