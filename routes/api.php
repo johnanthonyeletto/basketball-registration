@@ -18,7 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/get-game-responses', function(Request $request){
-  $responses = DB::table('student')->leftJoin('game_response', 'student.CWID', 'game_response.CWID')->select('student.cwid', DB::raw('CONCAT(student.first_name, " ", student.last_name) AS student_name'), 'student.instrument', 'student.scholarship', 'game_response.choice_id')->where('game_response.game_id', '=', $request['game_id'])->orWhereNull('game_response.choice_id')->get();
+  $responses = DB::table('student')->leftJoin('game_response', 'student.CWID', 'game_response.CWID')->select('student.cwid', DB::raw('CONCAT(student.first_name, " ", student.last_name) AS student_name'), 'student.instrument', 'student.scholarship', 'game_response.choice_id')->where('game_response.game_id', '=', $request['game_id'])->orWhereNull('game_response.choice_id')->orderBy('student.instrument')->get();
   
-  return json_encode($responses);
+  return json_encode([
+    "game_name" => "test",
+    "responses" => $responses
+  ]);
 });
