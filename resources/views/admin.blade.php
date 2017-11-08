@@ -6,6 +6,11 @@
 
 <div class="loading style-2"><div class="loading-wheel"></div></div>
 
+<header class="container-fluid">
+  <img src="/redFox.png">
+  <h1>Red Fox Music</h1>
+</header>
+
 <section class="container">
   <table class="table table-striped table-hover" id="gameTable">
     <thead>
@@ -25,6 +30,11 @@
   </table>
 </section>
 
+<footer class="container-fluid">
+  <small>Created By <a href="https://github.com/johnanthonyeletto" target="_blank"><b>John Eletto</b></a> for the <a href="http://clubs.marist.edu/band" target="_blank"><i>The Marist College Band</i></a></small>
+  <br/>
+  <small>&copy;{{ date("Y") }} John Eletto</small>
+</footer>
 
 <!-- Modal -->
 <div class="modal fade" id="response-modal" role="dialog">
@@ -83,7 +93,7 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
 
       response = $.parseJSON(response);
 
-      $("#response-modal").find(".modal-title").html(selected[1] + " - <span style='color: #1565C0'>" +response['game_info']['number_assigned'] + " Assigned</span>");
+      $("#response-modal").find(".modal-title").html(selected[1] + " - <span style='color: #1565C0'>" +response['game_info']['number_assigned'] + " Assigned</span><br/><small>" + selected[2] + "</small>");
 
       var append = "<table class='table'>";
 

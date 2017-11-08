@@ -15,6 +15,16 @@
     <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
     <style>
+      @font-face {
+        font-family: collegiate-black;
+        src: url(/fonts/CollegiateBlackFLF.ttf);
+      }
+
+      @font-face {
+        font-family: collegiate;
+        src: url(/fonts/CollegiateFLF.ttf);
+      }
+
       .loading {
         width: 100%;
         height: 100%;
@@ -52,6 +62,30 @@
         100% {
           -webkit-transform: rotate(-360deg);
         }
+      }
+
+      header{
+        height: 100px;
+        width: 100%;
+        background-color: rgb(227,0,54);
+        margin-bottom: 10px;
+      }
+
+      header img{
+        height: 100%;
+        vertical-align: middle;
+        -webkit-filter: drop-shadow(5px 5px rgba(0,0,0,0.2));
+        filter: drop-shadow(5px 5px rgba(0,0,0,0.2));
+      }
+
+      header h1{
+        display: inline;
+        vertical-align: middle;
+        height: 100%;
+        color: white;
+        font-family: collegiate;
+        font-size: 50px;
+        text-shadow: 5px 5px rgba(0,0,0,0.2);
       }
     </style>
 
