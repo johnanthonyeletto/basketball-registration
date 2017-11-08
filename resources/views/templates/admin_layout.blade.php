@@ -91,6 +91,10 @@
       footer{
         margin-top: 10px;
       }
+      
+      .table-hover tr{
+        cursor: pointer;
+      }
     </style>
 
   </head>
