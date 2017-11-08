@@ -54,4 +54,6 @@ Route::post('/send-group-email', function(){
     Mail::to($student->CWID.'@marist.edu')->queue(new GameAssignmentMailable($student, $games));
 
   }
+  
+  return response(200);
 });
