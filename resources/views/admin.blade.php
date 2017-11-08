@@ -31,7 +31,7 @@
 </section>
 
 <footer class="container-fluid">
-  <small>Created By <a href="http://www.johneletto.com/" target="_blank"><b>John Eletto</b></a> for <a href="http://clubs.marist.edu/band" target="_blank"><i>The Marist College Band</i></a></small>
+  <small>Created by <a href="http://www.johneletto.com/" target="_blank"><b>John Eletto</b></a> for <a href="http://clubs.marist.edu/band" target="_blank"><i>The Marist College Band</i></a>.</small>
   <br/>
   <small>&copy;{{ date("Y") }} John Eletto</small>
 </footer>
