@@ -46,6 +46,8 @@ Route::post('/assign-game', function(Request $request){
 });
 
 Route::post('/send-group-email', function(){
+  cas()->authenticate();
+  
   $students = DB::table('student')->get();
   
   foreach($students as $student){
