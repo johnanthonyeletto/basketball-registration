@@ -101,7 +101,7 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
 
       append += "<input type='hidden' name='game_id' value='" + selected[0] + "'>";
 
-      append += "<thead><th></th><th>Name</th><th>Weekend</th><th>Weekday</th></thead>"
+      append += "<thead><th></th><th>Name</th><th>Class</th><th>Weekend</th><th>Weekday</th></thead>"
 
       var currentInstrument = ""
 
@@ -109,7 +109,7 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
 
         if(this['instrument'] != currentInstrument){
           append += "<tr><td></td></tr>";
-          append += "<tr style='background-color: #E0E0E0;'><td colspan='4'><b>" + this['instrument'] + "</b></td></tr>";
+          append += "<tr style='background-color: #E0E0E0;'><td colspan='5'><b>" + this['instrument'] + "</b></td></tr>";
           currentInstrument = this['instrument'];
         }
 
@@ -137,6 +137,8 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
         }
 
         append += "<td>" + this['student_name'] + "</td>";
+        
+        append += "<td>" + (this['class_times'] != null ? this['class_times'] : "") + "</td>";
 
         append += "<td>" + this['weekend_assigned'] + "</td>";
 
