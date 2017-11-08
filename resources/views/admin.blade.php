@@ -61,7 +61,8 @@
 <script>
 var table = $('#gameTable').DataTable({
   paging: false,
-  ordering: false
+  ordering: false,
+  searching: false
 });
 
 $('#gameTable tbody').on( 'click', 'tr', function () {
