@@ -18,7 +18,7 @@
       <tr>
         <td class="hidden">{{ $game->game_id }}</td>
         <td>{{ $game->game_name }} @if($game->game_required == 1) - <b style="color: red;">Required</b>@endif</td>
-        <td>{{\Carbon\Carbon::parse($game->game_datetime)->format('l, M d, Y h:i A')}}</td>
+        <td>{{\Carbon\Carbon::parse($game->game_datetime)->format('l, M d, Y - h:i A')}}</td>
       </tr>
       @endforeach
     </tbody>
