@@ -87,6 +87,10 @@
         font-size: 50px;
         text-shadow: 5px 5px rgba(0,0,0,0.2);
       }
+      
+      footer{
+        margin-top: 10px;
+      }
     </style>
 
   </head>
