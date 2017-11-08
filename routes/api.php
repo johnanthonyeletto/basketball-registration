@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Mail\GameAssignmentMailable;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,15 @@ Route::post('/assign-game', function(Request $request){
 
 
   return response(200);
+});
+
+Route::post('/send-group-email', function(){
+  $students = DB::table('student')->get();
+  
+  foreach($students as $student){
+    $games = DB::table('assignment')->join('game', 'assignment.game_id', '=', 'game.game_id')->select('game.game_name', 'game.game_datetime')->where('assignment.CWID', '=', $student->CWID)->get();
+    
+    Mail::to($student->CWID.'@marist.edu')->queue(new GameAssignmentMailable($student, $games));
+
+  }
 });
