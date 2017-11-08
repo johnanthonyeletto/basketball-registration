@@ -4,6 +4,8 @@
 
 @section('content')
 
+<div class="loading style-2"><div class="loading-wheel"></div></div>
+
 <section class="container">
   <table class="table table-striped table-hover" id="gameTable">
     <thead>
@@ -35,11 +37,11 @@
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
-        <form>
+        <form method="post" action="/api/assign-game">
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
       </div>
     </div>
 
@@ -60,17 +62,17 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
     $(this).addClass('selected');
 
     var selected = table.row( this ).data();
-    
-    
+
+
     $("#response-modal").find("form").html("");
     $("#response-modal").find(".modal-title").html("Loading...");
-    
+
     $("#response-modal").modal();
-    
-    
-    
-    
-    
+
+
+
+
+
     $.ajax({
       type: "POST",
       url: "/api/get-game-responses",
@@ -78,23 +80,27 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
         game_id: selected[0]
       }
     }).done(function(response){
-      
+
       response = $.parseJSON(response);
-      
+
       $("#response-modal").find(".modal-title").html(selected[1] + " - <span style='color: #1565C0'>" +response['game_info']['number_assigned'] + " Assigned</span>");
-      
+
       var append = "<table class='table'>";
-      
+
+      append += "<input type='hidden' name='game_id' value='" + selected[0] + "'>";
+
+      append += "<thead><th></th><th>Name</th><th>Weekend</th><th>Weekday</th></thead>"
+
       var currentInstrument = ""
-      
+
       $.each(response['responses'], function(){
-        
+
         if(this['instrument'] != currentInstrument){
           append += "<tr><td></td></tr>";
-          append += "<tr style='background-color: #E0E0E0;'><td><b>" + this['instrument'] + "</b></td></tr>";
+          append += "<tr style='background-color: #E0E0E0;'><td colspan='4'><b>" + this['instrument'] + "</b></td></tr>";
           currentInstrument = this['instrument'];
         }
-        
+
         switch(this["choice_id"]){
           case 1:
             append += "<tr style='background-color: #A5D6A7;'>";
@@ -108,28 +114,60 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
           default:
             append += "<tr>";
         }
-        
+
         if(this['scholarship'] == 1 || response['game_info']['game_required'] == 1){
-          append += "<td><input type='checkbox' name='" + this["cwid"] + "' checked disabled></td>";
-          append += "<input type='hidden' name='" + this["cwid"] + "'>";
+          append += "<td><input type='checkbox' name='student_assigned[]' value='" + this["cwid"] + "' checked disabled></td>";
+          append += "<input type='hidden' name='student_assigned[]' value='" + this["cwid"] + "'>";
         }else if(this['assigned'] == 1){
-          append += "<td><input type='checkbox' name='" + this["cwid"] + "' checked></td>";
+          append += "<td><input type='checkbox' name='student_assigned[]' value='" + this["cwid"] + "' checked></td>";
         }else{
-          append += "<td><input type='checkbox' name='" + this["cwid"] + "'></td>";
+          append += "<td><input type='checkbox' name='student_assigned[]' value='" + this["cwid"] + "'></td>";
         }
-        
+
         append += "<td>" + this['student_name'] + "</td>";
-        
+
+        append += "<td>" + this['weekend_assigned'] + "</td>";
+
+        append += "<td>" + this['weekday_assigned'] + "</td>";
+
         append += "</tr>";
-        
+
       });
-      
+
       append += "</table>"
       $("#response-modal").find("form").append(append);
     });
 
   }
 } );
+
+$("#response-modal").find("form").submit(function(e) {
+  e.preventDefault();
+  $.ajax({
+    type: 'POST',
+    url: '/api/assign-game',
+    data: $("#response-modal").find("form").serialize(),
+    success: function() {
+      $(".loading.style-2").hide();
+    },
+    error: function() {
+      alert("There was an error. Reloading page. Please try again.");
+      
+      location.reload();
+    }
+  });
+});
+
+
+  $('#response-modal').on('hidden.bs.modal', function (e) {
+    $(".loading.style-2").show();
+    
+    
+    $("#response-modal").find("form").submit();  
+  });
+
+
+
 </script>
 
 @endsection
