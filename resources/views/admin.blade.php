@@ -28,6 +28,7 @@
       @endforeach
     </tbody>
   </table>
+  <button type="Button" class="btn btn-danger" style="float: right;" onclick="sendEmail();">Send Email To All Students</button>
 </section>
 
 <footer class="container-fluid">
@@ -137,7 +138,7 @@ $('#gameTable tbody').on( 'click', 'tr', function () {
         }
 
         append += "<td>" + this['student_name'] + "</td>";
-        
+
         append += "<td>" + (this['class_times'] != null ? this['class_times'] : "") + "</td>";
 
         append += "<td>" + this['weekend_assigned'] + "</td>";
@@ -166,19 +167,41 @@ $("#response-modal").find("form").submit(function(e) {
     },
     error: function() {
       alert("There was an error. Reloading page. Please try again.");
-      
+
       location.reload();
     }
   });
 });
 
 
-  $('#response-modal').on('hidden.bs.modal', function (e) {
+$('#response-modal').on('hidden.bs.modal', function (e) {
+  $(".loading.style-2").show();
+
+
+  $("#response-modal").find("form").submit();  
+});
+
+function sendEmail(){
+  var input = window.prompt("This will send an email to every student with their schedule. If you would like to continue, please enter the word 'send'.");
+
+  if(input == 'send'){
     $(".loading.style-2").show();
-    
-    
-    $("#response-modal").find("form").submit();  
-  });
+    $.ajax({
+      type: 'POST',
+      url: '/api/send-group-email',
+      success: function() {
+        $(".loading.style-2").hide();
+      },
+      error: function() {
+        alert("There was an error. Reloading page. Please try again.");
+
+        location.reload();
+      }
+    });
+  } else {
+    window.alert("The emails will not be sent.");
+  }
+}
 
 
 
