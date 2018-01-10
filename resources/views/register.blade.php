@@ -13,7 +13,29 @@
       <h2>Since you are a scholarship student, you must go to all games.</h2>
       @endif
     </header>
-    <a class="btn btn-primary" href="#class">Get Started</a>
+    <a class="btn btn-primary" href="#instrument">Get Started</a>
+  </section>
+  <section class="section container" id="instrument-section">
+    <header>
+      <h1>Which instrument do you play?</h1>
+    </header>
+    <select class="form-control" name="instrument">
+      <option>Piccolo</option>
+      <option>Flute</option>
+      <option>Clarinet</option>
+      <option>Alto Sax</option>
+      <option>Trumpet</option>
+      <option>Mellophone</option>
+      <option>Trombone</option>
+      <option>Baritone Horn</option>
+      <option>Baritone Sax</option>
+      <option>Sousaphone</option>
+      <option>Percussion</option>
+    </select>
+    <a class="btn btn-primary" href="#class">Keep Going</a>
+    <br/>
+    <br/>
+    <a href="#welcome">&larr; Back</a>
   </section>
   <section class="section container" id="class-section">
     <header>
@@ -77,7 +99,7 @@
     @endif
     <br/>
     <br/>
-    <a href="#welcome">&larr; Back</a>
+    <a href="#instrument">&larr; Back</a>
   </section>
   @if(!$student->scholarship)
   <section class="section container" id="weekday-section">
@@ -190,9 +212,9 @@
 $(document).ready(function() {
 
   @if($student->scholarship)
-  var anchors = ['welcome', 'class', 'required'];
+  var anchors = ['welcome', 'instrument', 'class', 'required'];
   @else
-  var anchors = ['welcome', 'class', 'weekday', 'weekend', 'required'];
+  var anchors = ['welcome', 'instrument', 'class', 'weekday', 'weekend', 'required'];
   @endif
 
   $('#fullpage').fullpage({
@@ -200,9 +222,9 @@ $(document).ready(function() {
     anchors:anchors,
     keyboardScrolling: false,
     scrollOverflowOptions: {
-            click:false,    
-            preventDefaultException: {tagName: /.*/}
-        } 
+      click:false,    
+      preventDefaultException: {tagName: /.*/}
+    } 
   });
 
   $.fn.fullpage.setMouseWheelScrolling(false);

@@ -60,6 +60,8 @@ Route::post('/register/submit', function(Request $request){
       ]);
     }
   }
+  
+  DB::table('student')->where('CWID', $cwid)->update(['instrument' => $request->input()['instrument']]);
 
   return redirect('/register/thank-you');
 });
