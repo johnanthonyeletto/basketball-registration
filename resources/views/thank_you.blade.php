@@ -11,7 +11,7 @@
     <br/>
     <h2>You will be contacted when assignments are released.</h2>
     </header>
-    <a class="btn btn-primary" href="http://clubs.marist.edu/band/">Visit The Band</a>
+    <a class="btn btn-primary" href="https://goo.gl/forms/mPKdhFVEvu0ipH9U2">Let us know if you're going abroad this semester!</a>
   </section>
 </form>
 
