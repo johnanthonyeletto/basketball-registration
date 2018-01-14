@@ -24,6 +24,7 @@
       <option>Flute</option>
       <option>Clarinet</option>
       <option>Alto Sax</option>
+      <option>Tenor Sax</option>
       <option>Trumpet</option>
       <option>Mellophone</option>
       <option>Trombone</option>
