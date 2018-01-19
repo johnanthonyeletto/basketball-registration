@@ -2,7 +2,9 @@
 
 {{ $student->first_name }},
 
-You've been assigned to {{ $games->count() }} basketball games for the Fall 2017 Semester.
+You've been assigned to {{ $games->count() }} basketball games for the Spring 2018 Semester.
+
+Please be sure to email band@marist.edu if you're unable to make any of the games that you've been assigned to.
 
 <table width="100%" style="text-align: left;">
   <thead>
