@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Http\Request;
+use App\Mail\GameAssignmentMailable;
 
 Route::get('/', function () {
   cas()->authenticate();
@@ -86,4 +87,22 @@ Route::get('/admin', function(){
   $games = DB::table('game')->orderBy('game_datetime')->get();
   
   return view('admin', ['games' => $games]);
+});
+
+Route::post('/send-group-email', function(Request $request){
+  cas()->authenticate();
+  
+  set_time_limit(0);
+
+  $students = DB::table('student')->whereIn("CWID", explode(',', $request->input('students')))->get();
+  
+  foreach($students as $student){
+    $games = DB::table('assignment')->join('game', 'assignment.game_id', '=', 'game.game_id')->select('game.game_name', 'game.game_datetime')->where('assignment.CWID', '=', $student->CWID)->get();
+    
+    Mail::to($student->CWID.'@marist.edu')->queue(new GameAssignmentMailable($student, $games));
+
+    \Log::info($student->CWID." - Message Sent");
+  }
+  
+  return response(200);
 });

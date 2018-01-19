@@ -48,6 +48,8 @@ Route::post('/assign-game', function(Request $request){
 Route::post('/send-group-email', function(){
   cas()->authenticate();
   
+  set_time_limit(0);
+
   $students = DB::table('student')->get();
   
   foreach($students as $student){
@@ -55,6 +57,7 @@ Route::post('/send-group-email', function(){
     
     Mail::to($student->CWID.'@marist.edu')->queue(new GameAssignmentMailable($student, $games));
 
+    \Log::info($student->CWID." - Message Sent");
   }
   
   return response(200);

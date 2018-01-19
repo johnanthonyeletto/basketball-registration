@@ -29,6 +29,15 @@
     </tbody>
   </table>
   <button type="Button" class="btn btn-danger" style="float: right;" onclick="sendEmail();">Send Email To All Students</button>
+  <br/>
+  <br/>
+  <form method="POST" action="{{ url('/send-group-email') }}">
+    {{ csrf_field() }}
+
+    <input type="text" name="students">
+    <input type="submit">
+  </form>
+
 </section>
 
 <footer class="container-fluid">
