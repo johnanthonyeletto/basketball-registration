@@ -97,7 +97,7 @@ Route::post('/send-group-email', function(Request $request){
   $students = DB::table('student')->whereIn("CWID", explode(',', $request->input('students')))->get();
   
   foreach($students as $student){
-    $games = DB::table('assignment')->join('game', 'assignment.game_id', '=', 'game.game_id')->select('game.game_name', 'game.game_datetime')->where('assignment.CWID', '=', $student->CWID)->get();
+    $games = DB::table('assignment')->join('game', 'assignment.game_id', '=', 'game.game_id')->select('game.game_name', 'game.game_datetime')->where('assignment.CWID', '=', $student->CWID)->orderBy("game.game_datetime", "asc")->get();
     
     Mail::to($student->CWID.'@marist.edu')->queue(new GameAssignmentMailable($student, $games));
 

@@ -33,6 +33,6 @@ class GameAssignmentMailable extends Mailable
      */
   public function build()
   {
-    return $this->markdown('emails.game_assignment_email')->subject("Your Basketball Assignments");
+    return $this->markdown('emails.game_assignment_email')->subject("CORRECTED - Your Basketball Assignments");
   }
 }
